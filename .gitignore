@@ -40,10 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
-#database
+# database
 /pgdata
 
-#generated prisma client
+# Generated files
 src/generated/
 /src/generated/prisma
