@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: petshop
     volumes:
-      - pg_data_petshop:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
 
 volumes:
-  pg_data_petshop:
+  pgdata:
