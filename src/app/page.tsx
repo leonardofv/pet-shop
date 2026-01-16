@@ -23,6 +23,14 @@ const appointments = [
     phone: '98986854321',
     scheduleAt: new Date('2026-01-13T11:00:00'),
   },
+  {
+    id: '3',
+    petName: 'Elisa',
+    description: 'Consulta',
+    tutorName: 'Maria',
+    phone: '98986854321',
+    scheduleAt: new Date('2026-01-14T20:00:00'),
+  },
 ];
 
 const getPeriod = (hour: number): AppointmentPeriodDay => {
@@ -51,7 +59,7 @@ function groupAppointmentByPeriod(
   const afternoonAppointments = transformedAppointments.filter(
     (apt) => apt.period === 'afternoon'
   );
-  const evenongAppointments = transformedAppointments.filter(
+  const eveningAppointments = transformedAppointments.filter(
     (apt) => apt.period === 'evening'
   );
 
@@ -72,7 +80,7 @@ function groupAppointmentByPeriod(
       title: 'Noite',
       type: 'evening',
       timeRange: '19h-21h',
-      appointments: evenongAppointments,
+      appointments: eveningAppointments,
     },
   ];
 }
