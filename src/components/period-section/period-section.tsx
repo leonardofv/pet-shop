@@ -35,7 +35,11 @@ export const PeriodSection = ({ period }: PeriodSectionProps) => {
               <div className="text-right">Paciente</div>
             </div>
             {period.appointments.map((appointment, index) => (
-              <AppointmentCard appointment={appointment} key={index} />
+              <AppointmentCard
+                appointment={appointment}
+                key={index}
+                isFirstInSection={index == 0} //adicionar borda
+              />
             ))}
           </div>
         </div>
