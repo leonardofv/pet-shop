@@ -1,7 +1,19 @@
-comandos Prisma
+#Comandos Prisma
 
 pnpm add prisma && pnpm add -D @prisma/client
-
 npx prisma init --datasource-provider postgresql
-
 npx prisma migrate dev --name "init"
+
+#Dependências para o Form
+
+pnpm add react-hook-form @hookform/resolvers zod sooner
+#chadcn
+pnpm dlx shadcn@latest add dialog
+pnpm dlx shadcn@latest add form
+pnpm dlx shadcn@latest add input
+pnpm dlx shadcn@latest add textarea
+
+#Comandos para parar serviço na porta 5432
+sudo lsof -i :5432          # Ver o que está usando a porta
+sudo systemctl stop postgresql  # Parar o serviço
+
