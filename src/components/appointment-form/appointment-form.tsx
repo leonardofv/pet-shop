@@ -19,15 +19,27 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Dog, User } from 'lucide-react';
+import { CalendarIcon, ChevronDownIcon, Dog, Phone, User } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { IMaskInput } from 'react-imask';
+import { format, startOfToday } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { cn } from '@/lib/utils';
+import { Calendar } from '../ui/calendar';
 
 const appointmentFormSchema = z.object({
   tutorName: z.string().min(3, 'O nome do tutor é obrigatório'),
   petName: z.string().min(3, 'O nome do pet é obrigatório'),
-  // phone: z.string().min(11, 'O nome do tutor é obrigatório'),
+  phone: z.string().min(11, 'O nome do tutor é obrigatório'),
   description: z.string().min(3, 'uma descrição é obrigatório'),
+  scheduleAt: z
+    .date({
+      error: 'A data é obrigatória',
+    })
+    .min(startOfToday(), {
+      message: 'A data não pode ser inferior a data de hoje',
+    }),
 });
 
 type AppointmentFormValues = z.infer<typeof appointmentFormSchema>;
@@ -38,8 +50,9 @@ export const AppointmentForm = () => {
     defaultValues: {
       tutorName: ' ',
       petName: ' ',
-      // phone: ' ',
+      phone: ' ',
       description: ' ',
+      scheduleAt: undefined,
     },
   });
 
@@ -118,6 +131,34 @@ export const AppointmentForm = () => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-label-medium-size text-content-primary">
+                    Telefone
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Phone
+                        className="absolute left-3 top-1/2 -translate-y-1/2 transform text-content-brand"
+                        size={20}
+                      />
+                      <IMaskInput
+                        placeholder="(99) 99999-9999"
+                        mask={'(00) 00000-0000'}
+                        className="pl-10 flex h-12 w-full rounded-md border border-border-primary bg-background-tertiary px-3 py-2 text-sm text-content-primary ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-content-secondary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:ring-border-brand disabled:cursor-not-allowed disabled:opacity-50 hover:border-border-secondary focus:border-border-brand focus-visible:border-border-brand aria-invalid:ring-destructive/20 aria-invalid:border-destructive"
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage /> {/* mostrar mensagem do zod */}
+                </FormItem>
+              )}
+            />
+
             {/* description */}
             <FormField
               control={form.control}
@@ -135,6 +176,53 @@ export const AppointmentForm = () => {
                     />
                   </FormControl>
                   <FormMessage /> {/* mostrar mensagem do zod */}
+                </FormItem>
+              )}
+            />
+
+            {/* data */}
+            <FormField
+              control={form.control}
+              name="scheduleAt"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="text-label-medium-size text-content-primary">
+                    Data
+                  </FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-full justify-between text-left font-normal bg-background-tertiary border-border-primary text-content-primary hover:bg-background-tertiary hover:border-border-secondary hover:text-content-primary focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-border-brand focus:border-border-brand focus-visible:border-border-brand',
+                            !field.value && 'text-content-secondary'
+                          )}
+                        >
+                          <div className="flex items-center gap-2">
+                            <CalendarIcon
+                              size={20}
+                              className="text-content-brand"
+                            />
+                            {field.value ? (
+                              format(field.value, 'dd/MM/yyyy')
+                            ) : (
+                              <span>Selecione uma data</span>
+                            )}
+                          </div>
+                          <ChevronDownIcon className="opacity-50 h-4 w-4" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < startOfToday()}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </FormItem>
               )}
             />
