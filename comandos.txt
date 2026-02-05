@@ -1,9 +1,22 @@
+#schema Prisma
+
+model Appointment {
+  id String @id @default(cuid())
+  tutorName String
+  petName String
+  phone String
+  description String
+  scheduleAt DateTime
+
+  @@map("appointments")
+}
+
 #Comandos Prisma
 
 pnpm add prisma && pnpm add -D @prisma/client
 npx prisma init --datasource-provider postgresql
 npx prisma migrate dev --name "init"
-npx prisma migrate dev
+npx prisma generate
 
 #Dependências para o Form
 
