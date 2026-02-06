@@ -37,3 +37,7 @@ pnpm add @radix-ui/react-select
 sudo lsof -i :5432          # Ver o que está usando a porta
 sudo systemctl stop postgresql  # Parar o serviço
 
+
+# Função Submit
+
+pnpm add sonner
