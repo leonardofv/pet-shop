@@ -44,6 +44,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import { toast } from 'sonner';
+import { createAppointment } from '@/app/actions';
 
 const appointmentFormSchema = z
   .object({
@@ -90,11 +91,16 @@ export const AppointmentForm = () => {
     },
   });
 
-  const onSubmit = (data: AppointFormValues) => {
+  const onSubmit = async (data: AppointFormValues) => {
     // 10:00 => [10, 00]
     const [hour, minute] = data.time.split(':');
     const scheduleAt = new Date(data.scheduleAt);
     scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
+
+    await createAppointment({
+      ...data,
+      scheduleAt, //Substitui o scheduleAt anterior com o novo que foi construído com data + hora
+    });
 
     toast.success('Agendamento concluído');
     console.log(data);
