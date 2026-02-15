@@ -1,5 +1,6 @@
 'use server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 import z from 'zod';
 
 const appointmentSchema = z.object({
@@ -47,6 +48,9 @@ export async function createAppointment(data: AppointmentData) {
         ...parsedData,
       },
     });
+
+    //atualiza a página inicial com os novos dados do formulário
+    revalidatePath('/');
   } catch (error) {
     console.log(error);
   }
