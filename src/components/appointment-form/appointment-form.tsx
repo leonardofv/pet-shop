@@ -97,13 +97,18 @@ export const AppointmentForm = () => {
     const scheduleAt = new Date(data.scheduleAt);
     scheduleAt.setHours(Number(hour), Number(minute), 0, 0);
 
-    await createAppointment({
+    const result = await createAppointment({
       ...data,
       scheduleAt, //Substitui o scheduleAt anterior com o novo que foi construído com data + hora
     });
 
+    if (result?.error) {
+      toast.error(result.error);
+      return;
+    }
+
     toast.success('Agendamento concluído');
-    console.log(data);
+    form.reset();
   };
 
   return (

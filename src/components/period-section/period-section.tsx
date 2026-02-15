@@ -13,7 +13,6 @@ const periodIcons = {
 };
 
 export const PeriodSection = ({ period }: PeriodSectionProps) => {
-  console.log(period);
   return (
     <section className="mb-8 bg-background-tertiary rounded-xl">
       <div className="flex items-center px-5 py-3 justify-between border-b border-[#2E2C30]">
@@ -44,7 +43,9 @@ export const PeriodSection = ({ period }: PeriodSectionProps) => {
           </div>
         </div>
       ) : (
-        <p>Nehum agendamento para ese período</p>
+        <p className="text-paragraph-small-size text-content-secondary p-5">
+          Nehum agendamento para ese período
+        </p>
       )}
     </section>
   );
