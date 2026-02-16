@@ -32,6 +32,7 @@ pnpm dlx shadcn@latest add popover
 pnpm dlx shadcn@latest add calendar
 pnpm dlx shadcn@latest add select
 pnpm add @radix-ui/react-select
+pnpm dlx shadcn@latest add alert-dialog
 
 #Comandos para parar serviço na porta 5432
 sudo lsof -i :5432          # Ver o que está usando a porta
