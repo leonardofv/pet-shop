@@ -263,7 +263,7 @@ export const AppointmentForm = ({
                     <FormLabel className="text-label-medium-size text-content-primary">
                       Data
                     </FormLabel>
-                    <Popover>
+                    <Popover modal>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
